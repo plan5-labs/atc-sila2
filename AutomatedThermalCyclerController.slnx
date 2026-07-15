@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="AutomatedThermalCyclerCommandExecutor/AutomatedThermalCyclerCommandExecutor.csproj" Id="48a7d34e-2284-4bc2-bc23-151a55645a65" />
+  <Project Path="AutomatedThermalCyclerController.Features/AutomatedThermalCyclerController.Features.csproj" />
+  <Project Path="AutomatedThermalCyclerController.Server/AutomatedThermalCyclerController.Server.csproj" />
+</Solution>

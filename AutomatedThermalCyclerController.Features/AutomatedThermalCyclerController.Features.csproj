@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <DebugType>portable</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Features\" />
+        <!-- Reference SiLA2 packages -->
+        <PackageReference Include="SiLA2.Core" Version="10.1.0" />
+        <PackageReference Include="Grpc.AspNetCore" Version="2.70.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.70.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="Features\AutomatedThermalCyclerController-v1_0.sila.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <!-- XSLT Transformation: FDL XML → Proto -->
+    <Target Name="ProtoPreparation" BeforeTargets="PrepareForBuild">
+        <XslTransformation XslInputPath="..\..\..\sila_base\xslt\fdl2proto.xsl" XmlInputPaths="Features\AutomatedThermalCyclerController-v1_0.sila.xml" OutputPaths="Protos\AutomatedThermalCyclerController.proto" />
+    </Target>
+
+    <!-- Protobuf Code Generation: Proto → C# gRPC Stubs -->
+    <Target Name="ProtoGeneration" DependsOnTargets="ProtoPreparation" AfterTargets="ProtoPreparation">
+      <DownloadFile SourceUrl="https://gitlab.com/SiLA2/sila_base/-/raw/master/protobuf/SiLAFramework.proto" DestinationFolder="$(MSBuildProjectDirectory)/Protos" DestinationFileName="SiLAFramework.proto" />
+        <ItemGroup>
+            <Protobuf Include="Protos\AutomatedThermalCyclerController.proto" GrpcServices="Both" OutputDir="Services\" ProtoRoot="Protos\" />
+            <!-- Include base SiLA2 proto -->
+            <Protobuf Update="Protos\SiLAFramework.proto" GrpcServices="None" ProtoRoot="Protos\" CompileOutputs="false" />
+        </ItemGroup>
+    </Target>
+
+</Project>

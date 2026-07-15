@@ -1,0 +1,24 @@
+{
+  "AutomatedThermalCycler": {
+    "HostName": "169.254.8.200",
+    "Port": "50053",
+    "SerialNumber": ""
+  },
+  "CommandExecutor": {
+    "Port": "5141"
+  },
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Console", "Serilog.Sinks.File" ],
+    "MinimumLevel": "Debug",
+    "WriteTo": [
+      { "Name": "Console" },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "AutomatedThermalCyclerCommandExecutor.log",
+          "rollOnFileSizeLimit": true
+        }
+      }
+    ]
+  }
+}
