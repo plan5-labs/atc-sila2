@@ -1,2 +1,8 @@
 .DS_Store
 
+# .NET build artifacts
+bin/
+obj/
+
+# Downloaded at build time by the Features codegen (ProtoGeneration target)
+AutomatedThermalCyclerController.Features/Protos/SiLAFramework.proto
