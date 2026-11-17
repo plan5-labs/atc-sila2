@@ -65,3 +65,9 @@ Binaries land in the standard `bin/<Configuration>/<TargetFramework>/` folders:
 
 - PowerShell/batch scripts in `Tools/` (protocol file binarization)
 - Standard .NET SDK-style projects for the net10.0 apps; legacy-style csproj for the .NET Framework 4.8 executor
+
+## License
+
+MIT License. Copyright (c) 2025-2026 RIKEN. See [LICENSE](LICENSE).
+
+Third-party components are subject to their own licenses (see `Licenses/` and `AutomatedThermalCyclerCommandExecutor/Licenses/`). The vendor library `atc-api` and the IKVM libraries are not included in this repository; `atc-api` is subject to its vendor's license.
